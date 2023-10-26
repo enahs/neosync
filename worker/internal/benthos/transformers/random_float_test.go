@@ -31,7 +31,6 @@ func TestProcessRandomFloatPreserveLengthFalse(t *testing.T) {
 	actual := GetFloatLength(res).DigitsAfterDecimalLength + GetFloatLength(res).DigitsBeforeDecimalLength
 	assert.NoError(t, err)
 	assert.Equal(t, actual, expectedLength, "The output Float needs to be the same length as the input Float")
-
 }
 
 func TestRandomFloatTransformer(t *testing.T) {

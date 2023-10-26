@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useToast } from '@/components/ui/use-toast';
-import { Transformer } from '@/neosync-api-client/mgmt/v1alpha1/transformer_pb';
+import { CustomTransformer } from '@/neosync-api-client/mgmt/v1alpha1/transformer_pb';
 import { getErrorMessage } from '@/util/util';
 import { useRouter } from 'next/navigation';
 
@@ -25,25 +25,26 @@ export function DataTableRowActions<TData>({
   row,
   onDeleted,
 }: DataTableRowActionsProps<TData>) {
-  const transformer = row.original as Transformer;
+  const transformer = row.original as CustomTransformer;
   const router = useRouter();
   const { toast } = useToast();
 
   async function onDelete(): Promise<void> {
     try {
-      await removeTransformer(transformer.value); //TODO: this should be transformer.id,
+      await removeTransformer(transformer.id);
       toast({
         title: 'Transformer removed successfully!',
       });
       onDeleted();
     } catch (err) {
-      console.error(err);
       toast({
         title: 'Unable to remove tranformer',
         description: getErrorMessage(err),
       });
     }
   }
+
+  async function onClone() {}
 
   return (
     <DropdownMenu>
@@ -59,12 +60,12 @@ export function DataTableRowActions<TData>({
       <DropdownMenuContent align="end" className="w-[160px]">
         <DropdownMenuItem
           className="cursor-pointer"
-          onClick={() => router.push(`/transformers/${transformer.value}`)} //this should be id
+          onClick={() => router.push(`/transformers/${transformer.id}`)}
         >
           View
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer" onClick={() => onDelete()}>
+        <DropdownMenuItem className="cursor-pointer" onClick={() => onClone()}>
           Clone
         </DropdownMenuItem>
         <DropdownMenuSeparator />
@@ -77,9 +78,12 @@ export function DataTableRowActions<TData>({
 }
 
 async function removeTransformer(transformerId: string): Promise<void> {
-  const res = await fetch(`/api/transformers/${transformerId}`, {
-    method: 'DELETE',
-  });
+  const res = await fetch(
+    `/api/transformers/custom?transformerId=${transformerId}`,
+    {
+      method: 'DELETE',
+    }
+  );
   if (!res.ok) {
     const body = await res.json();
     throw new Error(body.message);
