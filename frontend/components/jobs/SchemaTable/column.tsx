@@ -201,7 +201,7 @@ function TansformerSelect(props: TransformersSelectProps) {
         <Command>
           <CommandInput placeholder="Search transformers..." />
           <CommandEmpty>No transformers found.</CommandEmpty>
-          <CommandGroup>
+          <CommandGroup className="overflow-auto h-[400px]">
             {transformers.map((t, index) => (
               <CommandItem
                 key={`${t.value}-${index}`}

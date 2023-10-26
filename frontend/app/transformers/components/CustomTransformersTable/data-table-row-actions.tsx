@@ -44,8 +44,6 @@ export function DataTableRowActions<TData>({
     }
   }
 
-  async function onClone() {}
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -63,10 +61,6 @@ export function DataTableRowActions<TData>({
           onClick={() => router.push(`/transformers/${transformer.id}`)}
         >
           View
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer" onClick={() => onClone()}>
-          Clone
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer" onClick={() => onDelete()}>
