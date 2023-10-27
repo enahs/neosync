@@ -8,7 +8,7 @@ require (
 	connectrpc.com/grpcreflect v1.2.0
 	github.com/benthosdev/benthos/v4 v4.22.0
 	github.com/bxcodec/faker/v4 v4.0.0-beta.3
-	github.com/google/uuid v1.3.1
+	github.com/google/uuid v1.4.0
 	github.com/jackc/pgx/v5 v5.4.3
 	github.com/nucleuscloud/neosync/backend v0.0.0-20231018182133-9112d286ff4b
 	github.com/spf13/cobra v1.7.0
